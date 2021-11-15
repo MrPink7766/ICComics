@@ -108,5 +108,6 @@
       "move_to_subfolder": true,
       "apply_links_replacements": true,
       "apply_file_links_replacements": true
+    }
   ]
 }
