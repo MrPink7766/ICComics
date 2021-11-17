@@ -792,7 +792,7 @@ figure {
 }
 
 .image-5 {
-  position: relative;
+  position: static;
   padding-left: 0px;
   text-align: center;
 }
