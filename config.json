@@ -103,7 +103,7 @@
       "apply_file_links_replacements": true
     },
     {
-      "name": "map.html",
+      "name": "map",
       "filepath": "map.html",
       "move_to_subfolder": true,
       "apply_links_replacements": true,
