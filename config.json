@@ -19,7 +19,7 @@
     },
     {
       "target": "\"index.html\"",
-      "replace_by": "\"/index\""
+      "replace_by": "\"/\""
     },
     {
       "target": "\"401.html\"",
