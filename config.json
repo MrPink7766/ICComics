@@ -18,6 +18,10 @@
       "replace_by": "\"/404\""
     },
     {
+      "target": "\"index.html\"",
+      "replace_by": "\"/\""
+    },
+    {
       "target": "\"401.html\"",
       "replace_by": "\"/401\""
     },
