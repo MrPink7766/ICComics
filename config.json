@@ -92,7 +92,7 @@
       "name": "bob-1",
       "filepath": "bob-1.html",
       "move_to_subfolder": true,
-      "apply_links_replacements": false,
+      "apply_links_replacements": true,
       "apply_file_links_replacements": true
     },
     {
@@ -100,14 +100,14 @@
       "filepath": "bob-dashboard.html",
       "move_to_subfolder": true,
       "apply_links_replacements": true,
-      "apply_file_links_replacements": false
+      "apply_file_links_replacements": true
     },
     {
       "name": "map",
       "filepath": "map.html",
       "move_to_subfolder": true,
-      "apply_links_replacements": false,
-      "apply_file_links_replacements": false
+      "apply_links_replacements": true,
+      "apply_file_links_replacements": true
     }
   ]
 }
