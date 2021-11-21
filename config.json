@@ -7,15 +7,15 @@
   "links_replacements": [
     {
       "target": "\"comics.html\"",
-      "replace_by": "\"/comics\""
+      "replace_by": "\"/comics/\""
     },
     {
       "target": "\"about.html\"",
-      "replace_by": "\"/about\""
+      "replace_by": "\"/about/\""
     },
     {
       "target": "\"404.html\"",
-      "replace_by": "\"/404\""
+      "replace_by": "\"/404/\""
     },
     {
       "target": "\"index.html\"",
@@ -23,19 +23,19 @@
     },
     {
       "target": "\"401.html\"",
-      "replace_by": "\"/401\""
+      "replace_by": "\"/401/\""
     },
     {
       "target": "\"bob-1.html\"",
-      "replace_by": "\"/bob-1\""
+      "replace_by": "\"/bob-1/\""
     },
     {
       "target": "\"bob-dashboard.html\"",
-      "replace_by": "\"/bob-dashboard\""
+      "replace_by": "\"/bob-dashboard/\""
     },
     {
       "target": "\"map.html\"",
-      "replace_by": "\"/map\""
+      "replace_by": "\"/map/\""
     }
   ],
   "file_links_replacement": [
