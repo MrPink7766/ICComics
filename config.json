@@ -34,6 +34,10 @@
       "replace_by": "\"/bob-dashboard/\""
     },
     {
+      "target": "\"bob-stats.html\"",
+      "replace_by": "\"/bob-stats/\""
+    },
+    {
       "target": "\"map.html\"",
       "replace_by": "\"/map/\""
     }
@@ -98,6 +102,13 @@
     {
       "name": "bob-dashboard",
       "filepath": "bob-dashboard.html",
+      "move_to_subfolder": true,
+      "apply_links_replacements": true,
+      "apply_file_links_replacements": true
+    },
+    {
+      "name": "bob-stats",
+      "filepath": "bob-stats.html",
       "move_to_subfolder": true,
       "apply_links_replacements": true,
       "apply_file_links_replacements": true
