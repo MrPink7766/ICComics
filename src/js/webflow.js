@@ -2740,7 +2740,28 @@ Webflow.define('forms', module.exports = function ($, _) {
     data.fileUploads = wrap.find('.w-file-upload');
     data.fileUploads.each(function (j) {
       initFileUpload(j, data);
-    });
+    }); // Accessiblity fixes
+
+    var formName = data.form.attr('aria-label') || data.form.attr('data-name') || 'Form';
+
+    if (!data.done.attr('aria-label')) {
+      data.form.attr('aria-label', formName);
+    }
+
+    data.done.attr('tabindex', '-1');
+    data.done.attr('role', 'region');
+
+    if (!data.done.attr('aria-label')) {
+      data.done.attr('aria-label', formName + ' success');
+    }
+
+    data.fail.attr('tabindex', '-1');
+    data.fail.attr('role', 'region');
+
+    if (!data.fail.attr('aria-label')) {
+      data.fail.attr('aria-label', formName + ' failure');
+    }
+
     var action = data.action = $el.attr('action');
     data.handler = null;
     data.redirect = $el.attr('data-redirect'); // MailChimp form
@@ -3010,7 +3031,14 @@ Webflow.define('forms', module.exports = function ($, _) {
 
 
     data.done.toggle(success);
-    data.fail.toggle(!success); // Hide form on success
+    data.fail.toggle(!success);
+
+    if (success) {
+      data.done.focus();
+    } else {
+      data.fail.focus();
+    } // Hide form on success
+
 
     form.toggle(!success); // Reset data and enable submit button
 
