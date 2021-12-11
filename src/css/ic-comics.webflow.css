@@ -44,6 +44,7 @@ h3 {
   font-size: 18px;
   line-height: 30px;
   font-weight: 400;
+  text-align: center;
   text-transform: uppercase;
 }
 
@@ -53,6 +54,7 @@ h4 {
   font-size: 18px;
   line-height: 24px;
   font-weight: 700;
+  text-align: center;
 }
 
 h5 {
@@ -61,6 +63,7 @@ h5 {
   font-size: 14px;
   line-height: 20px;
   font-weight: 700;
+  text-align: center;
 }
 
 h6 {
@@ -680,7 +683,7 @@ figure {
 .heading-2 {
   margin-right: 232px;
   padding-right: 0px;
-  padding-left: 94px;
+  padding-left: 0px;
 }
 
 .container {
@@ -1057,6 +1060,48 @@ figure {
 
 .bold-text {
   text-align: center;
+}
+
+.slider {
+  position: fixed;
+}
+
+.tabs {
+  display: block;
+  border: 1px none #000;
+  text-align: left;
+}
+
+.tab-link-tab-1 {
+  background-color: #f8c740;
+}
+
+.tab-link-tab-2 {
+  background-color: #f8c740;
+}
+
+.tab-link-tab-3 {
+  background-color: #f8c740;
+}
+
+.tab-link-tab-1-2 {
+  background-color: #f8c740;
+}
+
+.tab-link-tab-2-2 {
+  background-color: #f8c740;
+}
+
+.tab-link-tab-3-2 {
+  background-color: #f8c740;
+}
+
+.tab-link-tab-4 {
+  background-color: #f8c740;
+}
+
+.tab-link-tab-5 {
+  background-color: #f8c740;
 }
 
 @media screen and (max-width: 991px) {
