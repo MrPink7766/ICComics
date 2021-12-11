@@ -40,6 +40,10 @@
     {
       "target": "\"map.html\"",
       "replace_by": "\"/map/\""
+    },
+    {
+      "target": "\"nft-roadmap.html\"",
+      "replace_by": "\"/nft-roadmap/\""
     }
   ],
   "file_links_replacement": [
@@ -116,6 +120,13 @@
     {
       "name": "map",
       "filepath": "map.html",
+      "move_to_subfolder": true,
+      "apply_links_replacements": true,
+      "apply_file_links_replacements": true
+    },
+    {
+      "name": "nft-roadmap",
+      "filepath": "nft-roadmap.html",
       "move_to_subfolder": true,
       "apply_links_replacements": true,
       "apply_file_links_replacements": true
