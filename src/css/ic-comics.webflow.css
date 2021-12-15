@@ -815,17 +815,28 @@ figure {
 
 .body-5 {
   margin-right: 0px;
-  margin-left: 500px;
+  margin-left: 0px;
   padding-right: 0px;
   padding-left: 0px;
 }
 
 .container-4 {
+  margin-right: 0px;
+  margin-left: 0px;
   padding-right: 0px;
 }
 
 .navbar {
-  margin-left: -498px;
+  display: block;
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-right: 0px;
+  grid-auto-columns: 1fr;
+  -ms-grid-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: auto auto;
+  grid-template-rows: auto auto;
+  text-align: left;
 }
 
 .div-block {
@@ -1104,6 +1115,30 @@ figure {
   background-color: #f8c740;
 }
 
+.tab-link-tab-2-3 {
+  background-color: #f8c740;
+}
+
+.tab-link-tab-1-3 {
+  background-color: #cf404d;
+}
+
+.image-9 {
+  margin-left: 0px;
+}
+
+.link-block-2 {
+  margin-left: 196px;
+}
+
+.container-5 {
+  padding-left: 112px;
+}
+
+.container-6 {
+  padding-right: 40px;
+}
+
 @media screen and (max-width: 991px) {
   body {
     margin-left: 0px;
@@ -1180,6 +1215,10 @@ figure {
   .footer-2 {
     padding-right: 20px;
     padding-left: 20px;
+  }
+
+  .container-6 {
+    padding-right: 0px;
   }
 }
 
@@ -1295,6 +1334,10 @@ figure {
   .footer-image {
     -o-object-fit: contain;
     object-fit: contain;
+  }
+
+  .container-5 {
+    padding-left: 0px;
   }
 }
 
