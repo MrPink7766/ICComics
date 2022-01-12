@@ -137,13 +137,6 @@
       "apply_file_links_replacements": true
     },
     {
-      "name": "BOB-BOOMING-VOICE",
-      "filepath": "BOB-BOOMING-VOICE.html",
-      "move_to_subfolder": true,
-      "apply_links_replacements": true,
-      "apply_file_links_replacements": true
-    },
-    {
       "name": "omniverse",
       "filepath": "omniverse.html",
       "move_to_subfolder": true,
