@@ -22,10 +22,6 @@
       "replace_by": "\"/\""
     },
     {
-      "target": "\"BOB-BOOMING-VOICE.html\"",
-      "replace_by": "\"/BOB-BOOMING-VOICE/\""
-    },
-    {
       "target": "\"omniverse.html\"",
       "replace_by": "\"/omniverse/\""
     },
@@ -70,10 +66,6 @@
     {
       "target": "images/",
       "replace_by": "../images/"
-    },
-     {
-      "target": "\"Bob-1/",
-      "replace_by": "\"../Bob-1/"
     },
     {
       "target": "\"js/",
