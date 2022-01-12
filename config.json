@@ -71,6 +71,10 @@
       "target": "images/",
       "replace_by": "../images/"
     },
+     {
+      "target": "BOB-1/",
+      "replace_by": "../BOB-1/"
+    },
     {
       "target": "\"js/",
       "replace_by": "\"../js/"
