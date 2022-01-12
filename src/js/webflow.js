@@ -3396,6 +3396,12 @@ function shouldSetArrowRightInactive(currentIndex, items) {
   return getNextVisibleIndex(currentIndex + 1, items) === -1;
 }
 
+function setAriaLabelIfEmpty($element, labelText) {
+  if (!$element.attr('aria-label')) {
+    $element.attr('aria-label', labelText);
+  }
+}
+
 function createLightbox(window, document, $, container) {
   var tram = $.tram;
   var isArray = Array.isArray;
@@ -3409,7 +3415,9 @@ function createLightbox(window, document, $, container) {
 
   var $refs; // Instance of Spinner
 
-  var spinner;
+  var spinner; // Tracks data on element visiblity modified when lightbox opens
+
+  var resetVisibilityState = [];
 
   function lightbox(thing, index) {
     items = isArray(thing) ? thing : [thing];
@@ -3420,9 +3428,10 @@ function createLightbox(window, document, $, container) {
 
     if (withoutConditionallyHidden(items).length > 1) {
       $refs.items = $refs.empty;
-      items.forEach(function (item) {
+      items.forEach(function (item, idx) {
         var $thumbnail = dom('thumbnail');
-        var $item = dom('item').append($thumbnail);
+        var $item = dom('item').prop('tabIndex', 0).attr('aria-controls', 'w-lightbox-view').attr('role', 'tab').append($thumbnail);
+        setAriaLabelIfEmpty($item, "show item ".concat(idx + 1, " of ").concat(items.length));
 
         if (isConditionallyHidden(item)) {
           $item.addClass(CONDITION_INVISIBLE_CLASS);
@@ -3464,11 +3473,15 @@ function createLightbox(window, document, $, container) {
       // Empty jQuery object can be used to build new ones using `.add`.
       empty: $()
     };
-    $refs.arrowLeft = dom('control left inactive');
-    $refs.arrowRight = dom('control right inactive');
-    $refs.close = dom('control close');
-    $refs.spinner = dom('spinner');
-    $refs.strip = dom('strip');
+    $refs.arrowLeft = dom('control left inactive').attr('role', 'button').attr('aria-hidden', true).attr('aria-controls', 'w-lightbox-view');
+    $refs.arrowRight = dom('control right inactive').attr('role', 'button').attr('aria-hidden', true).attr('aria-controls', 'w-lightbox-view');
+    $refs.close = dom('control close').attr('role', 'button'); // Only set `aria-label` values if not already present
+
+    setAriaLabelIfEmpty($refs.arrowLeft, 'previous image');
+    setAriaLabelIfEmpty($refs.arrowRight, 'next image');
+    setAriaLabelIfEmpty($refs.close, 'close lightbox');
+    $refs.spinner = dom('spinner').attr('role', 'progressbar').attr('aria-live', 'polite').attr('aria-hidden', false).attr('aria-busy', true).attr('aria-valuemin', 0).attr('aria-valuemax', 100).attr('aria-valuenow', 0).attr('aria-valuetext', 'Loading image');
+    $refs.strip = dom('strip').attr('role', 'tablist');
     spinner = new Spinner($refs.spinner, prefixed('hide'));
     $refs.content = dom('content').append($refs.spinner, $refs.arrowLeft, $refs.arrowRight, $refs.close);
     $refs.container = dom('container').append($refs.content, $refs.strip);
@@ -3480,10 +3493,8 @@ function createLightbox(window, document, $, container) {
     $refs.container.on('click', selector('view'), handlerHide) // Prevent images from being dragged around.
     .on('dragstart', selector('img'), preventDefault);
     $refs.lightbox.on('keydown', keyHandler) // IE loses focus to inner nodes without letting us know.
-    .on('focusin', focusThis); // The `tabindex` attribute is needed to enable non-input elements
-    // to receive keyboard events.
-
-    $(container).append($refs.lightbox.prop('tabIndex', 0));
+    .on('focusin', focusThis);
+    $(container).append($refs.lightbox);
     return lightbox;
   };
   /**
@@ -3532,6 +3543,7 @@ function createLightbox(window, document, $, container) {
 
     var previousIndex = currentIndex;
     currentIndex = index;
+    $refs.spinner.attr('aria-hidden', false).attr('aria-busy', true).attr('aria-valuenow', 0).attr('aria-valuetext', 'Loading image');
     spinner.show(); // For videos, load an empty SVG with the video dimensions to preserve
     // the video’s aspect ratio while being responsive.
 
@@ -3546,7 +3558,7 @@ function createLightbox(window, document, $, container) {
 
       var $figure = dom('figure', 'figure').append(addClass($image, 'image'));
       var $frame = dom('frame').append($figure);
-      var $newView = dom('view').append($frame);
+      var $newView = dom('view').prop('tabIndex', 0).attr('id', 'w-lightbox-view').append($frame);
       var $html;
       var isIframe;
 
@@ -3572,6 +3584,7 @@ function createLightbox(window, document, $, container) {
       }
 
       function transitionToNewView() {
+        $refs.spinner.attr('aria-hidden', true).attr('aria-busy', false).attr('aria-valuenow', 100).attr('aria-valuetext', 'Loaded image');
         spinner.hide();
 
         if (index !== currentIndex) {
@@ -3579,8 +3592,23 @@ function createLightbox(window, document, $, container) {
           return;
         }
 
-        toggleClass($refs.arrowLeft, 'inactive', shouldSetArrowLeftInactive(index, items));
-        toggleClass($refs.arrowRight, 'inactive', shouldSetArrowRightInactive(index, items));
+        var shouldHideLeftArrow = shouldSetArrowLeftInactive(index, items);
+        toggleClass($refs.arrowLeft, 'inactive', shouldHideLeftArrow);
+        toggleHidden($refs.arrowLeft, shouldHideLeftArrow);
+
+        if (shouldHideLeftArrow && $refs.arrowLeft.is(':focus')) {
+          // Refocus on right arrow as left arrow is hidden
+          $refs.arrowRight.focus();
+        }
+
+        var shouldHideRightArrow = shouldSetArrowRightInactive(index, items);
+        toggleClass($refs.arrowRight, 'inactive', shouldHideRightArrow);
+        toggleHidden($refs.arrowRight, shouldHideRightArrow);
+
+        if (shouldHideRightArrow && $refs.arrowRight.is(':focus')) {
+          // Refocus on left arrow as right arrow is hidden
+          $refs.arrowLeft.focus();
+        }
 
         if ($refs.view) {
           tram($refs.view).add('opacity .3s').start({
@@ -3597,17 +3625,51 @@ function createLightbox(window, document, $, container) {
         }
 
         $refs.view = $newView;
+        $refs.view.prop('tabIndex', 0);
 
         if ($refs.items) {
-          removeClass($refs.items, 'active'); // Mark proper thumbnail as active
+          removeClass($refs.items, 'active');
+          $refs.items.removeAttr('aria-selected'); // Mark proper thumbnail as active
 
           var $activeThumb = $refs.items.eq(index);
-          addClass($activeThumb, 'active'); // Scroll into view
+          addClass($activeThumb, 'active');
+          $activeThumb.attr('aria-selected', true); // Scroll into view
 
           maybeScroll($activeThumb);
         }
       }
     });
+    $refs.close.prop('tabIndex', 0); // Track the focused item on page prior to lightbox opening,
+    // so we can return focus on hide
+
+    $(':focus').addClass('active-lightbox'); // Build is only called once per site (across multiple lightboxes),
+    // while the show function is called when opening lightbox but also
+    // when changing image.
+    // So checking resetVisibilityState seems to be one approach to
+    // trigger something only when the lightbox is opened
+
+    if (resetVisibilityState.length === 0) {
+      // Take all elements on the page out of the accessibility flow by marking
+      // them hidden and preventing tab index while lightbox is open.
+      $('body').children().each(function () {
+        // We don't include the lightbox wrapper or script tags
+        if ($(this).hasClass('w-lightbox-backdrop') || $(this).is('script')) {
+          return;
+        } // Store the elements previous visiblity state
+
+
+        resetVisibilityState.push({
+          node: $(this),
+          hidden: $(this).attr('aria-hidden'),
+          tabIndex: $(this).attr('tabIndex')
+        }); // Hide element from the accessiblity tree
+
+        $(this).attr('aria-hidden', true).attr('tabIndex', -1);
+      }); // Start focus on the close icon
+
+      $refs.close.focus();
+    }
+
     return lightbox;
   };
   /**
@@ -3681,15 +3743,35 @@ function createLightbox(window, document, $, container) {
   }
 
   function keyHandler(event) {
-    var keyCode = event.keyCode; // [esc]
+    var keyCode = event.keyCode; // [esc] or ([enter] or [space] while close button is focused)
 
-    if (keyCode === 27) {
-      lightbox.hide(); // [◀]
-    } else if (keyCode === 37) {
-      lightbox.prev(); // [▶]
-    } else if (keyCode === 39) {
-      lightbox.next();
+    if (keyCode === 27 || checkForFocusTrigger(keyCode, 'close')) {
+      lightbox.hide(); // [◀] or ([enter] or [space] while left button is focused)
+    } else if (keyCode === 37 || checkForFocusTrigger(keyCode, 'left')) {
+      lightbox.prev(); // [▶] or ([enter] or [space] while right button is focused)
+    } else if (keyCode === 39 || checkForFocusTrigger(keyCode, 'right')) {
+      lightbox.next(); // [enter] or [space] while a thumbnail is focused
+    } else if (checkForFocusTrigger(keyCode, 'item')) {
+      $(':focus').click();
     }
+  }
+  /**
+   * checkForFocusTrigger will check if the current focused element includes the matching class
+   * and that the user has pressed either enter or space to trigger an action.
+   * @param  {number} The numerical keyCode from the `keydown` event
+   * @param  {string} The unique part of the `className` from the element we are checking. E.g. `close` will be prefixed into `w-lightbox-close`
+   * @return {boolean}
+   */
+
+
+  function checkForFocusTrigger(keyCode, classMatch) {
+    if (keyCode !== 13 && keyCode !== 32) {
+      return false;
+    }
+
+    var currentElementClasses = $(':focus').attr('class');
+    var classToFind = prefixed(classMatch).trim();
+    return currentElementClasses.includes(classToFind);
   }
 
   function hideLightbox() {
@@ -3704,7 +3786,31 @@ function createLightbox(window, document, $, container) {
       removeClass($refs.content, 'group');
       addClass($refs.arrowLeft, 'inactive');
       addClass($refs.arrowRight, 'inactive');
-      currentIndex = $refs.view = undefined;
+      currentIndex = $refs.view = undefined; // Bring the page elements back into the accessiblity tree
+
+      resetVisibilityState.forEach(function (visibilityState) {
+        var node = visibilityState.node;
+
+        if (!node) {
+          return;
+        }
+
+        if (visibilityState.hidden) {
+          node.attr('aria-hidden', visibilityState.hidden);
+        } else {
+          node.removeAttr('aria-hidden');
+        }
+
+        if (visibilityState.tabIndex) {
+          node.attr('tabIndex', visibilityState.tabIndex);
+        } else {
+          node.removeAttr('tabIndex');
+        }
+      }); // Clear out the reset visibility state
+
+      resetVisibilityState = []; // Re-focus on the element that triggered the lightbox
+
+      $('.active-lightbox').removeClass('active-lightbox').focus();
     }
   }
 
@@ -3829,6 +3935,17 @@ function createLightbox(window, document, $, container) {
     return $element.toggleClass(prefixed(className), shouldAdd);
   }
   /**
+   * jQuery.toggleHidden
+   * @param  {jQuery}  Element where attribute will be set
+   * @param  {boolean} Boolean that determines if aria-hidden will be true or false
+   * @return {jQuery}
+   */
+
+
+  function toggleHidden($element, isHidden) {
+    return $element.attr('aria-hidden', isHidden).attr('tabIndex', isHidden ? -1 : 0);
+  }
+  /**
    * Create a new DOM element wrapped in a jQuery object,
    * decorated with our custom methods.
    * @param  {string} className
@@ -3898,7 +4015,13 @@ Webflow.define('lightbox', module.exports = function ($) {
 
     $lightboxes = $doc.find(namespace); // Instantiate all lighboxes
 
-    $lightboxes.webflowLightBox();
+    $lightboxes.webflowLightBox(); // Set accessibility properties that are useful prior
+    // to a lightbox being opened
+
+    $lightboxes.each(function () {
+      setAriaLabelIfEmpty($(this), 'open lightbox');
+      $(this).attr('aria-haspopup', 'dialog');
+    });
   }
 
   jQuery.fn.extend({
