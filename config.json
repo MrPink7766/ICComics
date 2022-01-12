@@ -22,6 +22,22 @@
       "replace_by": "\"/\""
     },
     {
+      "target": "\"BOB-BOOMING-VOICE.html\"",
+      "replace_by": "\"/BOB-BOOMING-VOICE/\""
+    },
+    {
+      "target": "\"omniverse.html\"",
+      "replace_by": "\"/omniverse/\""
+    },
+     {
+      "target": "\"bob-comic-archives.html\"",
+      "replace_by": "\"/bob-comic-archives/\""
+    },
+    {
+      "target": "\"huntress-dashboard.html\"",
+      "replace_by": "\"/huntress-dashboard/\""
+    },
+    {
       "target": "\"401.html\"",
       "replace_by": "\"/401/\""
     },
@@ -120,6 +136,34 @@
     {
       "name": "map",
       "filepath": "map.html",
+      "move_to_subfolder": true,
+      "apply_links_replacements": true,
+      "apply_file_links_replacements": true
+    },
+    {
+      "name": "BOB-BOOMING-VOICE",
+      "filepath": "BOB-BOOMING-VOICE.html",
+      "move_to_subfolder": true,
+      "apply_links_replacements": true,
+      "apply_file_links_replacements": true
+    },
+    {
+      "name": "omniverse",
+      "filepath": "omniverse.html",
+      "move_to_subfolder": true,
+      "apply_links_replacements": true,
+      "apply_file_links_replacements": true
+    },
+    {
+      "name": "bob-comic-archives",
+      "filepath": "bob-comic-archives.html",
+      "move_to_subfolder": true,
+      "apply_links_replacements": true,
+      "apply_file_links_replacements": true
+    },
+    {
+      "name": "huntress-dashboard",
+      "filepath": "huntress-dashboard.html",
       "move_to_subfolder": true,
       "apply_links_replacements": true,
       "apply_file_links_replacements": true
