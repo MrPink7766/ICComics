@@ -92,16 +92,12 @@
       "replace_by": "\"../Bob-1/"
     },
     {
-      "target": "\"pages/",
-      "replace_by": "\"../pages/"
-    },
-    {
-      "target": "\"Bob-1/files/pages",
+      "target": "\"Bob-1/files/pages/",
       "replace_by": "\"..Bob-1/files/pages/"
     },
     {
-      "target": "\"files/",
-      "replace_by": "\"../files/"
+      "target": "\"Bob-1/files/",
+      "replace_by": "\"..Bob-1/files/"
     },
     {
       "target": "\"js/",
