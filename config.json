@@ -51,19 +51,19 @@
     },
     {
       "target": "\"Bob-1\files\basic-html/page1.html\"",
-      "replace_by": "\"/Bob-1\files\basic-html/page1.html/\""
+      "replace_by": "\"/Bob-1\files\basic-html/page1.html\""
     },
     {
       "target": "\"Bob-1\files\basic-html/basic-html.html\"",
-      "replace_by": "\"/Bob-1\files\basic-html/basic-html.html/\""
+      "replace_by": "\"/Bob-1\files\basic-html/basic-html.html\""
     },
     {
-      "target": "\"bob-dashboard.html\"",
-      "replace_by": "\"/bob-dashboard/\""
+      "target": "\"Bob-1\files\basic-html/page2.html\"",
+      "replace_by": "\"/Bob-1\files\basic-html/page2.html\""
     },
     {
-      "target": "\"bob-dashboard.html\"",
-      "replace_by": "\"/bob-dashboard/\""
+      "target": "\"Bob-1\files\basic-html/page3.html\"",
+      "replace_by": "\"/Bob-1\files\basic-html/page3.html\""
     },
     {
       "target": "\"bob-stats.html\"",
