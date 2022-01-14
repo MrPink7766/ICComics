@@ -34,6 +34,10 @@
       "replace_by": "\"/huntress-dashboard/\""
     },
     {
+      "target": "\"BOB-BOOMING-VOICE.html\"",
+      "replace_by": "\"/BOB-BOOMING-VOICE/\""
+    },
+    {
       "target": "\"401.html\"",
       "replace_by": "\"/401/\""
     },
@@ -66,6 +70,10 @@
     {
       "target": "images/",
       "replace_by": "../images/"
+    },
+    {
+      "target": "\"Bob-1/",
+      "replace_by": "\"../Bob-1/"
     },
     {
       "target": "\"js/",
@@ -139,6 +147,13 @@
     {
       "name": "omniverse",
       "filepath": "omniverse.html",
+      "move_to_subfolder": true,
+      "apply_links_replacements": true,
+      "apply_file_links_replacements": true
+    },
+    {
+      "name": "BOB-BOOMING-VOICE",
+      "filepath": "BOB-BOOMING-VOICE.html",
       "move_to_subfolder": true,
       "apply_links_replacements": true,
       "apply_file_links_replacements": true
