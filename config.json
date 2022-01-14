@@ -72,12 +72,20 @@
       "replace_by": "../images/"
     },
     {
-      "target": "Bob-1/",
-      "replace_by": "../Bob-1/"
+      "target": "\"Bob-1/",
+      "replace_by": "\"../Bob-1/"
     },
     {
-      "target": "files/",
-      "replace_by": "../files/"
+      "target": "\"pages/",
+      "replace_by": "\"../pages/"
+    },
+    {
+      "target": "\"Bob-1/files/pages",
+      "replace_by": "\"..Bob-1/files/pages/"
+    },
+    {
+      "target": "\"files/",
+      "replace_by": "\"../files/"
     },
     {
       "target": "\"js/",
