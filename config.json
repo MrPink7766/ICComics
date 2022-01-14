@@ -76,6 +76,10 @@
       "replace_by": "../Bob-1/"
     },
     {
+      "target": "files/",
+      "replace_by": "../files/"
+    },
+    {
       "target": "\"js/",
       "replace_by": "\"../js/"
     }
