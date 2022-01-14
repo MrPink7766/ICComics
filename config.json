@@ -50,6 +50,22 @@
       "replace_by": "\"/bob-dashboard/\""
     },
     {
+      "target": "\"Bob-1\files\basic-html/page1.html\"",
+      "replace_by": "\"/Bob-1\files\basic-html/page1.html/\""
+    },
+    {
+      "target": "\"Bob-1\files\basic-html/basic-html.html\"",
+      "replace_by": "\"/Bob-1\files\basic-html/basic-html.html/\""
+    },
+    {
+      "target": "\"bob-dashboard.html\"",
+      "replace_by": "\"/bob-dashboard/\""
+    },
+    {
+      "target": "\"bob-dashboard.html\"",
+      "replace_by": "\"/bob-dashboard/\""
+    },
+    {
       "target": "\"bob-stats.html\"",
       "replace_by": "\"/bob-stats/\""
     },
